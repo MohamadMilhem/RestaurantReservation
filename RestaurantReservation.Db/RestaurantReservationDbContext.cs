@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Data;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Reflection.Metadata;
 
 namespace RestaurantReservation.Db
 {
@@ -24,11 +27,46 @@ namespace RestaurantReservation.Db
         {
 
             optionsBuilder.UseSqlServer(
-                ConfigurationManager.ConnectionStrings["SSMSConnectionString"].ConnectionString
+                 "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase"
                );
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            var timeOnlyConverter = new ValueConverter<TimeOnly, TimeSpan>(
+                    timeOnly => timeOnly.ToTimeSpan(),
+                    timeSpan => TimeOnly.FromTimeSpan(timeSpan));
+
+            modelBuilder
+                .Entity<Restaurant>()
+                .Property(r => r.OpenHour)
+                  .HasConversion(timeOnlyConverter);
+
+            modelBuilder
+                .Entity<Restaurant>()
+                .Property(r => r.CloseHour)
+                  .HasConversion(timeOnlyConverter);
+
+            modelBuilder.Entity<Reservation>()
+                .HasOne(r => r.Table)
+                .WithOne()
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Reservation)
+                .WithMany()
+                .OnDelete(DeleteBehavior.ClientCascade);
+           
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi =>  oi.Order)
+                .WithMany()
+                .OnDelete(DeleteBehavior.ClientCascade);
+
         }
 
     }
 }
 
-   
+
+

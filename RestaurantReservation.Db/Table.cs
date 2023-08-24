@@ -12,5 +12,7 @@ namespace RestaurantReservation.Db
         public int TableId { get; set; }
         public Restaurant Restaurant { get; set; }
         public int Capacity { get; set; }
+
+       // public Reservation? Reservation { get; set; }
     }
 }
