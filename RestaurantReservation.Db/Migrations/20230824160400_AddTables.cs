@@ -35,8 +35,7 @@ namespace RestaurantReservation.Db.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OpeningHours = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OpenHour = table.Column<TimeSpan>(type: "time", nullable: false),
                     CloseHour = table.Column<TimeSpan>(type: "time", nullable: false)
                 },
@@ -110,7 +109,7 @@ namespace RestaurantReservation.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservations",
+                name: "Reservation",
                 columns: table => new
                 {
                     ReservationId = table.Column<int>(type: "int", nullable: false)
@@ -119,79 +118,88 @@ namespace RestaurantReservation.Db.Migrations
                     RestaurantId = table.Column<int>(type: "int", nullable: false),
                     TableId = table.Column<int>(type: "int", nullable: false),
                     ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PartySize = table.Column<int>(type: "int", nullable: false)
+                    PartySize = table.Column<int>(type: "int", nullable: false),
+                    CustomerId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservations", x => x.ReservationId);
+                    table.PrimaryKey("PK_Reservation", x => x.ReservationId);
                     table.ForeignKey(
-                        name: "FK_Reservations_Customers_CustomerId",
+                        name: "FK_Reservation_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservations_Restaurants_RestaurantId",
+                        name: "FK_Reservation_Customers_CustomerId1",
+                        column: x => x.CustomerId1,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId");
+                    table.ForeignKey(
+                        name: "FK_Reservation_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "RestaurantId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "RestaurantId");
                     table.ForeignKey(
-                        name: "FK_Reservations_Tables_TableId",
+                        name: "FK_Reservation_Tables_TableId",
                         column: x => x.TableId,
                         principalTable: "Tables",
-                        principalColumn: "TableId");
+                        principalColumn: "TableId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Order",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ReservationId = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.PrimaryKey("PK_Order", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_Orders_Employees_EmployeeId",
+                        name: "FK_Order_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId");
                     table.ForeignKey(
-                        name: "FK_Orders_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
+                        name: "FK_Order_Employees_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId");
+                    table.ForeignKey(
+                        name: "FK_Order_Reservation_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Reservation",
                         principalColumn: "ReservationId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
-                    OrderItemId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    ItemMenuItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    OrderItemId = table.Column<int>(type: "int", nullable: false),
+                    MenuItemId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.OrderItemId);
                     table.ForeignKey(
-                        name: "FK_Items_MenuItems_ItemMenuItemId",
-                        column: x => x.ItemMenuItemId,
+                        name: "FK_Items_MenuItems_MenuItemId",
+                        column: x => x.MenuItemId,
                         principalTable: "MenuItems",
-                        principalColumn: "MenuItemId");
+                        principalColumn: "MenuItemId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Items_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
+                        name: "FK_Items_Order_OrderItemId",
+                        column: x => x.OrderItemId,
+                        principalTable: "Order",
                         principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -202,14 +210,9 @@ namespace RestaurantReservation.Db.Migrations
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Items_ItemMenuItemId",
+                name: "IX_Items_MenuItemId",
                 table: "Items",
-                column: "ItemMenuItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_OrderId",
-                table: "Items",
-                column: "OrderId");
+                column: "MenuItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_RestaurantId",
@@ -217,30 +220,29 @@ namespace RestaurantReservation.Db.Migrations
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_EmployeeId",
-                table: "Orders",
+                name: "IX_Order_EmployeeId",
+                table: "Order",
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ReservationId",
-                table: "Orders",
-                column: "ReservationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reservations_CustomerId",
-                table: "Reservations",
+                name: "IX_Reservation_CustomerId",
+                table: "Reservation",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_RestaurantId",
-                table: "Reservations",
+                name: "IX_Reservation_CustomerId1",
+                table: "Reservation",
+                column: "CustomerId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_RestaurantId",
+                table: "Reservation",
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_TableId",
-                table: "Reservations",
-                column: "TableId",
-                unique: true);
+                name: "IX_Reservation_TableId",
+                table: "Reservation",
+                column: "TableId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tables_RestaurantId",
@@ -258,13 +260,13 @@ namespace RestaurantReservation.Db.Migrations
                 name: "MenuItems");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Order");
 
             migrationBuilder.DropTable(
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Reservations");
+                name: "Reservation");
 
             migrationBuilder.DropTable(
                 name: "Customers");
