@@ -1,25 +1,22 @@
 ﻿
 using Microsoft.IdentityModel.Protocols;
 using System.Configuration;
+using System;
+using System.Linq;
+using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using RestaurantReservation.Db;
+using RestaurantReservation.Db.DataModels;
 
 namespace RestaurantReservation
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             
-            Console.WriteLine("Hello World!");
-
-            TimeOnly timeOnly = new TimeOnly(13, 23);
-        
-            Console.WriteLine(timeOnly.ToString());
-            var stringTime = timeOnly.ToString();
-
-            TimeOnly timeOnly2 = TimeOnly.Parse(stringTime);
-            TimeOnly timeOnly3 = timeOnly2.AddHours(1);
-            
-            Console.WriteLine(timeOnly3.ToString());
 
         }
     }

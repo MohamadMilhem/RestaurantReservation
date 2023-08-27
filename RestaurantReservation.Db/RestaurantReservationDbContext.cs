@@ -9,12 +9,19 @@ using System.Configuration;
 using System.Data;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Reflection.Metadata;
-using RestaurantReservation.Db.DataModels;
 using System.Linq.Expressions;
 using System;
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RestaurantReservation.Db.DataModels.Customers;
+using RestaurantReservation.Db.DataModels.Employees;
+using RestaurantReservation.Db.DataModels.MenuItems;
+using RestaurantReservation.Db.DataModels.Orders;
+using RestaurantReservation.Db.DataModels.OrderItems;
+using RestaurantReservation.Db.DataModels.Reservations;
+using RestaurantReservation.Db.DataModels.Restaurants;
+using RestaurantReservation.Db.DataModels.Tables;
 
 namespace RestaurantReservation.Db
 {
@@ -25,7 +32,7 @@ namespace RestaurantReservation.Db
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> Items { get; set; }
-        public DbSet<Order> Reservations { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Table> Tables { get; set; }
 
@@ -34,7 +41,7 @@ namespace RestaurantReservation.Db
         {
 
             optionsBuilder.UseSqlServer(
-                 "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = PubDatabase"
+                 ConfigurationManager.ConnectionStrings["SSMSConnectionString"].ConnectionString
                );
 
         }

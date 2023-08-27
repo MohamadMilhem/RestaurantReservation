@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurantReservation.Db.DataModels.Restaurants;
+using RestaurantReservation.Db.DataModels.Reservations;
 
-namespace RestaurantReservation.Db.DataModels
+namespace RestaurantReservation.Db.DataModels.Tables
 {
-    public class Table
+    public class Table : ITable
     {
 
         public int TableId { get; set; }
@@ -22,7 +24,7 @@ namespace RestaurantReservation.Db.DataModels
                 .WithMany(r => r.Tables)
                 .HasForeignKey("RestaurantId")
                 .OnDelete(DeleteBehavior.Cascade);
-            
+
             modelBuilder.Entity<Table>()
                 .HasMany(t => t.Reservations)
                 .WithOne(res => res.Table)

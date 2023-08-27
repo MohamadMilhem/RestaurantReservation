@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurantReservation.Db.DataModels.Reservations;
 
-namespace RestaurantReservation.Db.DataModels
+namespace RestaurantReservation.Db.DataModels.Customers
 {
-    public class Customer
+    public class Customer : ICustomer
     {
 
         public int CustomerId { get; set; }

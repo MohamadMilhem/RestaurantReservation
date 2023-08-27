@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurantReservation.Db.DataModels.Restaurants;
 
-namespace RestaurantReservation.Db.DataModels
+
+namespace RestaurantReservation.Db.DataModels.MenuItems
 {
-    public class MenuItem
+    public class MenuItem : IMenuItem
     {
 
         public int MenuItemId { get; set; }

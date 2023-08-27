@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurantReservation.Db.DataModels.Restaurants;
+using RestaurantReservation.Db.DataModels.Customers;
+using RestaurantReservation.Db.DataModels.Tables;
 
-namespace RestaurantReservation.Db.DataModels
+
+namespace RestaurantReservation.Db.DataModels.Reservations
 {
-    public class Reservation
+    public class Reservation : IReservation
     {
         public int ReservationId { get; set; }
         public Customer Customer { get; set; }
@@ -19,7 +23,7 @@ namespace RestaurantReservation.Db.DataModels
         public static void ConfigureEntity(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Reservation>()
-                .HasOne(r => r.Customer)
+                .HasOne<Customer>(r => r.Customer)
                 .WithMany(c => c.Reservations)
                 .HasForeignKey("CustomerId")
                 .OnDelete(DeleteBehavior.Cascade);

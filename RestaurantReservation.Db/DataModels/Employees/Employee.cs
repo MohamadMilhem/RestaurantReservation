@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RestaurantReservation.Db.DataModels.Restaurants;
+using RestaurantReservation.Db.DataModels.Orders;
 
-namespace RestaurantReservation.Db.DataModels
+
+namespace RestaurantReservation.Db.DataModels.Employees
 {
-    public class Employee
+    public class Employee : IEmployee
     {
 
         public int EmployeeId { get; set; }
