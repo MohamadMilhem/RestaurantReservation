@@ -23,7 +23,7 @@ namespace RestaurantReservation.Db.DataModels.Reservations
         public static void ConfigureEntity(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Reservation>()
-                .HasOne<Customer>(r => r.Customer)
+                .HasOne(r => r.Customer)
                 .WithMany(c => c.Reservations)
                 .HasForeignKey("CustomerId")
                 .OnDelete(DeleteBehavior.Cascade);

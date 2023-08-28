@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestaurantReservation.Db.DataModels.Restaurants;
-
+using RestaurantReservation.Db.DataModels.OrderItems;
 
 namespace RestaurantReservation.Db.DataModels.MenuItems
 {
@@ -25,6 +25,13 @@ namespace RestaurantReservation.Db.DataModels.MenuItems
                 .WithMany(r => r.MenuItems)
                 .HasForeignKey("RestaurantId")
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<MenuItem>()
+                .HasMany<OrderItem>()
+                .WithOne(oi => oi.MenuItem)
+                .HasForeignKey("MenuItemId")
+                .OnDelete(DeleteBehavior.ClientCascade);
+
         }
     }
 }

@@ -28,7 +28,7 @@ namespace RestaurantReservation.Db.DataModels.OrderItems
                 .HasOne(oi => oi.MenuItem)
                 .WithMany()
                 .HasForeignKey("MenuItemId")
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

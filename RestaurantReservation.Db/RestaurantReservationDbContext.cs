@@ -39,9 +39,9 @@ namespace RestaurantReservation.Db
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
+  
             optionsBuilder.UseSqlServer(
-                 ConfigurationManager.ConnectionStrings["SSMSConnectionString"].ConnectionString
+                ConfigurationManager.ConnectionStrings["SSMSConnectionString"].ConnectionString
                );
 
         }

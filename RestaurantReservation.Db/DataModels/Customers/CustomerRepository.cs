@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
@@ -37,6 +38,23 @@ namespace RestaurantReservation.Db.DataModels.Customers
                 _dbContext.Customers.Remove(result);
             }
             return _dbContext.SaveChanges();
+        }
+
+
+        public void GetCustomer(int id)
+        {
+            var result = _dbContext.Customers.ToList();
+
+            foreach(var item in result) {
+                Console.WriteLine(item.FirstName + " " + item.LastName + " " + item.CustomerId + " " + item.Reservations.Count);
+            }
+
+            
+        }
+
+        public IQueryable<Customer> Query()
+        {
+            return _dbContext.Set<Customer>().AsQueryable();
         }
 
     }
