@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestaurantReservation.Db;
-using RestaurantReservation.Db.DataModels;
-using RestaurantReservation.Db.DataModels.Customers;
-using RestaurantReservation.Db.DataModels.Reservations;
+using RestaurantReservation.Db.DomainModels;
+using RestaurantReservation.Db.DomainModels.Customers;
+using RestaurantReservation.Db.DomainModels.Reservations;
 using System.Security.Cryptography;
 
 namespace RestaurantReservation
@@ -19,18 +19,6 @@ namespace RestaurantReservation
     {
         static void Main(string[] args)
         {
-            var repo = new CustomerRepository();
-            var service = new CustomerService(repo);
-
-            //repo.GetCustomer(3);
-
-            var context = new RestaurantReservationDbContext();
-
-            var customer = context.Customers
-            .Include(c => c.Reservations) // Include the reservations
-            .SingleOrDefault(c => c.CustomerId == 3);
-
-
 
 
 

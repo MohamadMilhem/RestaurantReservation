@@ -3,9 +3,9 @@
     public class OrderItemService
     {
 
-        private readonly IGenericRepository<OrderItem> _orderItemRepository;
+        private readonly OrderItemRepository _orderItemRepository;
 
-        public OrderItemService(IGenericRepository<OrderItem> orderItemRepository)
+        public OrderItemService(OrderItemRepository orderItemRepository)
         {
             _orderItemRepository = orderItemRepository;
         }

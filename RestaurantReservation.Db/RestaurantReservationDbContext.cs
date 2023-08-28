@@ -14,14 +14,14 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RestaurantReservation.Db.DataModels.Customers;
-using RestaurantReservation.Db.DataModels.Employees;
-using RestaurantReservation.Db.DataModels.MenuItems;
-using RestaurantReservation.Db.DataModels.Orders;
-using RestaurantReservation.Db.DataModels.OrderItems;
-using RestaurantReservation.Db.DataModels.Reservations;
-using RestaurantReservation.Db.DataModels.Restaurants;
-using RestaurantReservation.Db.DataModels.Tables;
+using RestaurantReservation.Db.DomainModels.Customers;
+using RestaurantReservation.Db.DomainModels.Employees;
+using RestaurantReservation.Db.DomainModels.MenuItems;
+using RestaurantReservation.Db.DomainModels.Orders;
+using RestaurantReservation.Db.DomainModels.OrderItems;
+using RestaurantReservation.Db.DomainModels.Reservations;
+using RestaurantReservation.Db.DomainModels.Restaurants;
+using RestaurantReservation.Db.DomainModels.Tables;
 
 namespace RestaurantReservation.Db
 {

@@ -10,9 +10,9 @@ namespace RestaurantReservation.Db.DomainModels.Orders
     public class OrderService
     {
 
-        private readonly IGenericRepository<Order> _orderRepository;
+        private readonly OrderRepository _orderRepository;
 
-        public OrderService(IGenericRepository<Order> orderRepository)
+        public OrderService(OrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
         }

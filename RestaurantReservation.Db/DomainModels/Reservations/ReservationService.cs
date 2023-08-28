@@ -10,24 +10,16 @@ namespace RestaurantReservation.Db.DomainModels.Reservations
     public class ReservationService
     {
 
-        private readonly IGenericRepository<Reservation> _reservationRepository;
-        private readonly IGenericRepository<Order> _orderRepository;
+        private readonly ReservationRepository _reservationRepository;
+        private readonly OrderRepository _orderRepository;
         
-        public ReservationService(IGenericRepository<Reservation> reservationRepository, IGenericRepository<Order> orderRepository)
+        public ReservationService(ReservationRepository reservationRepository, OrderRepository orderRepository)
         {
             _reservationRepository = reservationRepository;
             _orderRepository = orderRepository;
         }
 
-        public IEnumerable<Reservation> GetOrdersWithItems(Func<Reservation, bool> predicate)
-        {
-            var reservations = _reservationRepository
-                .GetAllByWithRelated(predicate, 
-                res => res.Orders.Select(o => _orderRepository.GetAllByWithRelated(null, order => order.Items)));
-
-            return reservations; 
-        }
-
+    
 
     }
 }
