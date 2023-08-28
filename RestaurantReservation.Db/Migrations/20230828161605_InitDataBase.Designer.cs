@@ -12,8 +12,8 @@ using RestaurantReservation.Db;
 namespace RestaurantReservation.Db.Migrations
 {
     [DbContext(typeof(RestaurantReservationDbContext))]
-    [Migration("20230827122518_SeedData")]
-    partial class SeedData
+    [Migration("20230828161605_InitDataBase")]
+    partial class InitDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace RestaurantReservation.Db.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Customer", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Customers.Customer", b =>
                 {
                     b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace RestaurantReservation.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Employee", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Employees.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
@@ -156,7 +156,7 @@ namespace RestaurantReservation.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.MenuItem", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.MenuItems.MenuItem", b =>
                 {
                     b.Property<int>("MenuItemId")
                         .ValueGeneratedOnAdd()
@@ -227,68 +227,13 @@ namespace RestaurantReservation.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Order", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("OrderId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("Order");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderId = 1,
-                            EmployeeId = 4,
-                            OrderDate = new DateTime(2023, 8, 27, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(3972),
-                            TotalAmount = 23.98m
-                        },
-                        new
-                        {
-                            OrderId = 2,
-                            EmployeeId = 3,
-                            OrderDate = new DateTime(2023, 8, 26, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4005),
-                            TotalAmount = 45.75m
-                        },
-                        new
-                        {
-                            OrderId = 3,
-                            EmployeeId = 3,
-                            OrderDate = new DateTime(2023, 8, 25, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4008),
-                            TotalAmount = 32.50m
-                        },
-                        new
-                        {
-                            OrderId = 4,
-                            EmployeeId = 2,
-                            OrderDate = new DateTime(2023, 8, 24, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4009),
-                            TotalAmount = 15.25m
-                        },
-                        new
-                        {
-                            OrderId = 5,
-                            EmployeeId = 2,
-                            OrderDate = new DateTime(2023, 8, 23, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4011),
-                            TotalAmount = 28.90m
-                        });
-                });
-
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.OrderItem", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.OrderItems.OrderItem", b =>
                 {
                     b.Property<int>("OrderItemId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemId"));
 
                     b.Property<int>("MenuItemId")
                         .HasColumnType("int");
@@ -302,6 +247,8 @@ namespace RestaurantReservation.Db.Migrations
                     b.HasKey("OrderItemId");
 
                     b.HasIndex("MenuItemId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Items");
 
@@ -343,7 +290,78 @@ namespace RestaurantReservation.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Reservation", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Orders.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            EmployeeId = 4,
+                            OrderDate = new DateTime(2023, 8, 28, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2192),
+                            ReservationId = 1,
+                            TotalAmount = 23.98m
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            EmployeeId = 3,
+                            OrderDate = new DateTime(2023, 8, 27, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2230),
+                            ReservationId = 2,
+                            TotalAmount = 45.75m
+                        },
+                        new
+                        {
+                            OrderId = 3,
+                            EmployeeId = 3,
+                            OrderDate = new DateTime(2023, 8, 26, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2233),
+                            ReservationId = 3,
+                            TotalAmount = 32.50m
+                        },
+                        new
+                        {
+                            OrderId = 4,
+                            EmployeeId = 2,
+                            OrderDate = new DateTime(2023, 8, 25, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2234),
+                            ReservationId = 4,
+                            TotalAmount = 15.25m
+                        },
+                        new
+                        {
+                            OrderId = 5,
+                            EmployeeId = 2,
+                            OrderDate = new DateTime(2023, 8, 24, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2236),
+                            ReservationId = 5,
+                            TotalAmount = 28.90m
+                        });
+                });
+
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Reservations.Reservation", b =>
                 {
                     b.Property<int>("ReservationId")
                         .ValueGeneratedOnAdd()
@@ -374,7 +392,7 @@ namespace RestaurantReservation.Db.Migrations
 
                     b.HasIndex("TableId");
 
-                    b.ToTable("Reservation");
+                    b.ToTable("Reservations");
 
                     b.HasData(
                         new
@@ -382,7 +400,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 1,
                             CustomerId = 3,
                             PartySize = 0,
-                            ReservationDate = new DateTime(2023, 8, 28, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4039),
+                            ReservationDate = new DateTime(2023, 8, 29, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2260),
                             RestaurantId = 1,
                             TableId = 1
                         },
@@ -391,7 +409,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 2,
                             CustomerId = 3,
                             PartySize = 2,
-                            ReservationDate = new DateTime(2023, 8, 29, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4042),
+                            ReservationDate = new DateTime(2023, 8, 30, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2262),
                             RestaurantId = 2,
                             TableId = 2
                         },
@@ -400,7 +418,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 3,
                             CustomerId = 4,
                             PartySize = 1,
-                            ReservationDate = new DateTime(2023, 8, 30, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4043),
+                            ReservationDate = new DateTime(2023, 8, 31, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2264),
                             RestaurantId = 3,
                             TableId = 3
                         },
@@ -409,7 +427,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 4,
                             CustomerId = 5,
                             PartySize = 1,
-                            ReservationDate = new DateTime(2023, 8, 31, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4045),
+                            ReservationDate = new DateTime(2023, 9, 1, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2266),
                             RestaurantId = 4,
                             TableId = 4
                         },
@@ -418,13 +436,13 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 5,
                             CustomerId = 1,
                             PartySize = 0,
-                            ReservationDate = new DateTime(2023, 9, 1, 15, 25, 18, 374, DateTimeKind.Local).AddTicks(4047),
+                            ReservationDate = new DateTime(2023, 9, 2, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2268),
                             RestaurantId = 4,
                             TableId = 5
                         });
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Restaurant", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Restaurants.Restaurant", b =>
                 {
                     b.Property<int>("RestaurantId")
                         .ValueGeneratedOnAdd()
@@ -496,7 +514,7 @@ namespace RestaurantReservation.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Table", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Tables.Table", b =>
                 {
                     b.Property<int>("TableId")
                         .ValueGeneratedOnAdd()
@@ -549,9 +567,9 @@ namespace RestaurantReservation.Db.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Employee", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Employees.Employee", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Restaurant", "Restaurant")
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Restaurants.Restaurant", "Restaurant")
                         .WithMany("Employees")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -560,9 +578,9 @@ namespace RestaurantReservation.Db.Migrations
                     b.Navigation("Restaurant");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.MenuItem", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.MenuItems.MenuItem", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Restaurant", "Restaurant")
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Restaurants.Restaurant", "Restaurant")
                         .WithMany("MenuItems")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -571,40 +589,17 @@ namespace RestaurantReservation.Db.Migrations
                     b.Navigation("Restaurant");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Order", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.OrderItems.OrderItem", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Employee", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("EmployeeId");
-
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Employee", "Employee")
+                    b.HasOne("RestaurantReservation.Db.DomainModels.MenuItems.MenuItem", "MenuItem")
                         .WithMany()
-                        .HasForeignKey("OrderId")
+                        .HasForeignKey("MenuItemId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Reservation", "Reservation")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Reservation");
-                });
-
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.OrderItem", b =>
-                {
-                    b.HasOne("RestaurantReservation.Db.DomainModels.MenuItem", "MenuItem")
-                        .WithMany()
-                        .HasForeignKey("MenuItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Order", "Order")
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Orders.Order", "Order")
                         .WithMany("Items")
-                        .HasForeignKey("OrderItemId")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -613,21 +608,40 @@ namespace RestaurantReservation.Db.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Reservation", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Orders.Order", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Customer", "Customer")
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Employees.Employee", "Employee")
+                        .WithMany("Orders")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Reservations.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Reservation");
+                });
+
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Reservations.Reservation", b =>
+                {
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Customers.Customer", "Customer")
                         .WithMany("Reservations")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Restaurant", "Restaurant")
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Restaurants.Restaurant", "Restaurant")
                         .WithMany("Reservations")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Table", "Table")
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Tables.Table", "Table")
                         .WithMany("Reservations")
                         .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -640,9 +654,9 @@ namespace RestaurantReservation.Db.Migrations
                     b.Navigation("Table");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Table", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Tables.Table", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Restaurant", "Restaurant")
+                    b.HasOne("RestaurantReservation.Db.DomainModels.Restaurants.Restaurant", "Restaurant")
                         .WithMany("Tables")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -651,22 +665,22 @@ namespace RestaurantReservation.Db.Migrations
                     b.Navigation("Restaurant");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Customer", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Customers.Customer", b =>
                 {
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Employee", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Employees.Employee", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Order", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Orders.Order", b =>
                 {
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Restaurant", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Restaurants.Restaurant", b =>
                 {
                     b.Navigation("Employees");
 
@@ -677,7 +691,7 @@ namespace RestaurantReservation.Db.Migrations
                     b.Navigation("Tables");
                 });
 
-            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Table", b =>
+            modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Tables.Table", b =>
                 {
                     b.Navigation("Reservations");
                 });

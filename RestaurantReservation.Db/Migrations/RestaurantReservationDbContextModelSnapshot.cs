@@ -227,7 +227,10 @@ namespace RestaurantReservation.Db.Migrations
             modelBuilder.Entity("RestaurantReservation.Db.DomainModels.OrderItems.OrderItem", b =>
                 {
                     b.Property<int>("OrderItemId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderItemId"));
 
                     b.Property<int>("MenuItemId")
                         .HasColumnType("int");
@@ -241,6 +244,8 @@ namespace RestaurantReservation.Db.Migrations
                     b.HasKey("OrderItemId");
 
                     b.HasIndex("MenuItemId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Items");
 
@@ -285,13 +290,19 @@ namespace RestaurantReservation.Db.Migrations
             modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Orders.Order", b =>
                 {
                     b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("EmployeeId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
@@ -300,6 +311,8 @@ namespace RestaurantReservation.Db.Migrations
 
                     b.HasIndex("EmployeeId");
 
+                    b.HasIndex("ReservationId");
+
                     b.ToTable("Orders");
 
                     b.HasData(
@@ -307,35 +320,40 @@ namespace RestaurantReservation.Db.Migrations
                         {
                             OrderId = 1,
                             EmployeeId = 4,
-                            OrderDate = new DateTime(2023, 8, 28, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5548),
+                            OrderDate = new DateTime(2023, 8, 28, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2192),
+                            ReservationId = 1,
                             TotalAmount = 23.98m
                         },
                         new
                         {
                             OrderId = 2,
                             EmployeeId = 3,
-                            OrderDate = new DateTime(2023, 8, 27, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5576),
+                            OrderDate = new DateTime(2023, 8, 27, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2230),
+                            ReservationId = 2,
                             TotalAmount = 45.75m
                         },
                         new
                         {
                             OrderId = 3,
                             EmployeeId = 3,
-                            OrderDate = new DateTime(2023, 8, 26, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5579),
+                            OrderDate = new DateTime(2023, 8, 26, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2233),
+                            ReservationId = 3,
                             TotalAmount = 32.50m
                         },
                         new
                         {
                             OrderId = 4,
                             EmployeeId = 2,
-                            OrderDate = new DateTime(2023, 8, 25, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5581),
+                            OrderDate = new DateTime(2023, 8, 25, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2234),
+                            ReservationId = 4,
                             TotalAmount = 15.25m
                         },
                         new
                         {
                             OrderId = 5,
                             EmployeeId = 2,
-                            OrderDate = new DateTime(2023, 8, 24, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5582),
+                            OrderDate = new DateTime(2023, 8, 24, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2236),
+                            ReservationId = 5,
                             TotalAmount = 28.90m
                         });
                 });
@@ -379,7 +397,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 1,
                             CustomerId = 3,
                             PartySize = 0,
-                            ReservationDate = new DateTime(2023, 8, 29, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5604),
+                            ReservationDate = new DateTime(2023, 8, 29, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2260),
                             RestaurantId = 1,
                             TableId = 1
                         },
@@ -388,7 +406,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 2,
                             CustomerId = 3,
                             PartySize = 2,
-                            ReservationDate = new DateTime(2023, 8, 30, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5606),
+                            ReservationDate = new DateTime(2023, 8, 30, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2262),
                             RestaurantId = 2,
                             TableId = 2
                         },
@@ -397,7 +415,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 3,
                             CustomerId = 4,
                             PartySize = 1,
-                            ReservationDate = new DateTime(2023, 8, 31, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5608),
+                            ReservationDate = new DateTime(2023, 8, 31, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2264),
                             RestaurantId = 3,
                             TableId = 3
                         },
@@ -406,7 +424,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 4,
                             CustomerId = 5,
                             PartySize = 1,
-                            ReservationDate = new DateTime(2023, 9, 1, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5610),
+                            ReservationDate = new DateTime(2023, 9, 1, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2266),
                             RestaurantId = 4,
                             TableId = 4
                         },
@@ -415,7 +433,7 @@ namespace RestaurantReservation.Db.Migrations
                             ReservationId = 5,
                             CustomerId = 1,
                             PartySize = 0,
-                            ReservationDate = new DateTime(2023, 9, 2, 10, 53, 29, 238, DateTimeKind.Local).AddTicks(5611),
+                            ReservationDate = new DateTime(2023, 9, 2, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2268),
                             RestaurantId = 4,
                             TableId = 5
                         });
@@ -578,7 +596,7 @@ namespace RestaurantReservation.Db.Migrations
 
                     b.HasOne("RestaurantReservation.Db.DomainModels.Orders.Order", "Order")
                         .WithMany("Items")
-                        .HasForeignKey("OrderItemId")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -589,19 +607,15 @@ namespace RestaurantReservation.Db.Migrations
 
             modelBuilder.Entity("RestaurantReservation.Db.DomainModels.Orders.Order", b =>
                 {
-                    b.HasOne("RestaurantReservation.Db.DomainModels.Employees.Employee", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("EmployeeId");
-
                     b.HasOne("RestaurantReservation.Db.DomainModels.Employees.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
+                        .WithMany("Orders")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("RestaurantReservation.Db.DomainModels.Reservations.Reservation", "Reservation")
                         .WithMany()
-                        .HasForeignKey("OrderId")
+                        .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

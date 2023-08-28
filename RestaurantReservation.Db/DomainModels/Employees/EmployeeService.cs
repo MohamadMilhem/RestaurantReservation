@@ -19,12 +19,17 @@ namespace RestaurantReservation.Db.DomainModels.Employees
 
         public IEnumerable<Employee> GetManagers()
         {
-            return new List<Employee>();
+            return _employeeRepository.GetAllEmployeesWithTitle("Manager");
         }
 
-        public decimal AverageOrderAmount(Func<Employee, bool> predicate)
+        public decimal AverageOrderAmountById(int id)
         {
-            return 0;
+            Employee employee = _employeeRepository.GetWithOrders(id);
+            if (employee == null)
+            {
+                return 0;
+            }
+            return employee.Orders.Average(order => order.TotalAmount);
         }
 
     }

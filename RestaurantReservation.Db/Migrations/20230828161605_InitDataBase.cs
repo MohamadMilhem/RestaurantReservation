@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace RestaurantReservation.Db.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTables : Migration
+    public partial class InitDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -109,7 +111,7 @@ namespace RestaurantReservation.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservation",
+                name: "Reservations",
                 columns: table => new
                 {
                     ReservationId = table.Column<int>(type: "int", nullable: false)
@@ -118,30 +120,24 @@ namespace RestaurantReservation.Db.Migrations
                     RestaurantId = table.Column<int>(type: "int", nullable: false),
                     TableId = table.Column<int>(type: "int", nullable: false),
                     ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PartySize = table.Column<int>(type: "int", nullable: false),
-                    CustomerId1 = table.Column<int>(type: "int", nullable: true)
+                    PartySize = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservation", x => x.ReservationId);
+                    table.PrimaryKey("PK_Reservations", x => x.ReservationId);
                     table.ForeignKey(
-                        name: "FK_Reservation_Customers_CustomerId",
+                        name: "FK_Reservations_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservation_Customers_CustomerId1",
-                        column: x => x.CustomerId1,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId");
-                    table.ForeignKey(
-                        name: "FK_Reservation_Restaurants_RestaurantId",
+                        name: "FK_Reservations_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
                         principalColumn: "RestaurantId");
                     table.ForeignKey(
-                        name: "FK_Reservation_Tables_TableId",
+                        name: "FK_Reservations_Tables_TableId",
                         column: x => x.TableId,
                         principalTable: "Tables",
                         principalColumn: "TableId",
@@ -149,43 +145,41 @@ namespace RestaurantReservation.Db.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
-                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ReservationId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: true)
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.OrderId);
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_Order_Employees_EmployeeId",
+                        name: "FK_Orders_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId");
                     table.ForeignKey(
-                        name: "FK_Order_Employees_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeId");
-                    table.ForeignKey(
-                        name: "FK_Order_Reservation_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Reservation",
+                        name: "FK_Orders_Reservations_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservations",
                         principalColumn: "ReservationId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
-                    OrderItemId = table.Column<int>(type: "int", nullable: false),
+                    OrderItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
                     MenuItemId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -194,14 +188,109 @@ namespace RestaurantReservation.Db.Migrations
                         name: "FK_Items_MenuItems_MenuItemId",
                         column: x => x.MenuItemId,
                         principalTable: "MenuItems",
-                        principalColumn: "MenuItemId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "MenuItemId");
                     table.ForeignKey(
-                        name: "FK_Items_Order_OrderItemId",
-                        column: x => x.OrderItemId,
-                        principalTable: "Order",
+                        name: "FK_Items_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
                         principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "CustomerId", "Email", "FirstName", "LastName", "PhoneNumber" },
+                values: new object[,]
+                {
+                    { 1, null, "John", "Doe", null },
+                    { 2, null, "Jane", "Smith", null },
+                    { 3, null, "Michael", "Johnson", null },
+                    { 4, null, "Emily", "Williams", null },
+                    { 5, null, "David", "Brown", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Restaurants",
+                columns: new[] { "RestaurantId", "Address", "CloseHour", "Name", "OpenHour", "PhoneNumber" },
+                values: new object[,]
+                {
+                    { 1, "123 Main St", new TimeSpan(0, 22, 0, 0, 0), "Restaurant A", new TimeSpan(0, 8, 0, 0, 0), null },
+                    { 2, "456 Elm St", new TimeSpan(0, 23, 0, 0, 0), "Restaurant B", new TimeSpan(0, 9, 0, 0, 0), null },
+                    { 3, "789 Oak St", new TimeSpan(0, 21, 30, 0, 0), "Restaurant C", new TimeSpan(0, 7, 30, 0, 0), null },
+                    { 4, "555 Maple St", new TimeSpan(0, 21, 0, 0, 0), "Restaurant D", new TimeSpan(0, 8, 0, 0, 0), null },
+                    { 5, "222 Pine St", new TimeSpan(0, 23, 0, 0, 0), "Restaurant E", new TimeSpan(0, 10, 0, 0, 0), null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "EmployeeId", "FirstName", "LastName", "Position", "RestaurantId" },
+                values: new object[,]
+                {
+                    { 1, "Alice", "Johnson", "Manager", 1 },
+                    { 2, "Bob", "Smith", "Chef", 3 },
+                    { 3, "Sarah", "Miller", "Server", 2 },
+                    { 4, "James", "Davis", "Bartender", 4 },
+                    { 5, "Laura", "Martinez", "Manager", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MenuItems",
+                columns: new[] { "MenuItemId", "Description", "Name", "Price", "RestaurantId" },
+                values: new object[,]
+                {
+                    { 1, "Delicious burger", "Burger", 10.99m, 1 },
+                    { 2, "Tasty pizza", "Pizza", 12.99m, 2 },
+                    { 3, "Fresh salad", "Salad", 7.99m, 1 },
+                    { 4, "Juicy steak", "Steak", 18.99m, 3 },
+                    { 5, "Homemade pasta", "Pasta", 9.99m, 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Tables",
+                columns: new[] { "TableId", "Capacity", "RestaurantId" },
+                values: new object[,]
+                {
+                    { 1, 4, 1 },
+                    { 2, 6, 2 },
+                    { 3, 2, 2 },
+                    { 4, 8, 3 },
+                    { 5, 4, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reservations",
+                columns: new[] { "ReservationId", "CustomerId", "PartySize", "ReservationDate", "RestaurantId", "TableId" },
+                values: new object[,]
+                {
+                    { 1, 3, 0, new DateTime(2023, 8, 29, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2260), 1, 1 },
+                    { 2, 3, 2, new DateTime(2023, 8, 30, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2262), 2, 2 },
+                    { 3, 4, 1, new DateTime(2023, 8, 31, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2264), 3, 3 },
+                    { 4, 5, 1, new DateTime(2023, 9, 1, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2266), 4, 4 },
+                    { 5, 1, 0, new DateTime(2023, 9, 2, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2268), 4, 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "OrderId", "EmployeeId", "OrderDate", "ReservationId", "TotalAmount" },
+                values: new object[,]
+                {
+                    { 1, 4, new DateTime(2023, 8, 28, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2192), 1, 23.98m },
+                    { 2, 3, new DateTime(2023, 8, 27, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2230), 2, 45.75m },
+                    { 3, 3, new DateTime(2023, 8, 26, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2233), 3, 32.50m },
+                    { 4, 2, new DateTime(2023, 8, 25, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2234), 4, 15.25m },
+                    { 5, 2, new DateTime(2023, 8, 24, 19, 16, 5, 353, DateTimeKind.Local).AddTicks(2236), 5, 28.90m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "OrderItemId", "MenuItemId", "OrderId", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 2 },
+                    { 2, 2, 1, 1 },
+                    { 3, 3, 2, 1 },
+                    { 4, 4, 3, 3 },
+                    { 5, 5, 4, 1 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -215,33 +304,38 @@ namespace RestaurantReservation.Db.Migrations
                 column: "MenuItemId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Items_OrderId",
+                table: "Items",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_RestaurantId",
                 table: "MenuItems",
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_EmployeeId",
-                table: "Order",
+                name: "IX_Orders_EmployeeId",
+                table: "Orders",
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservation_CustomerId",
-                table: "Reservation",
+                name: "IX_Orders_ReservationId",
+                table: "Orders",
+                column: "ReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_CustomerId",
+                table: "Reservations",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservation_CustomerId1",
-                table: "Reservation",
-                column: "CustomerId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reservation_RestaurantId",
-                table: "Reservation",
+                name: "IX_Reservations_RestaurantId",
+                table: "Reservations",
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservation_TableId",
-                table: "Reservation",
+                name: "IX_Reservations_TableId",
+                table: "Reservations",
                 column: "TableId");
 
             migrationBuilder.CreateIndex(
@@ -260,13 +354,13 @@ namespace RestaurantReservation.Db.Migrations
                 name: "MenuItems");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Reservation");
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Customers");

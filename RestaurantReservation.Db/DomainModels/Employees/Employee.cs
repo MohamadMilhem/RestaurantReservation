@@ -32,7 +32,7 @@ namespace RestaurantReservation.Db.DomainModels.Employees
                 .HasMany(e => e.Orders)
                 .WithOne(o => o.Employee)
                 .HasForeignKey("EmployeeId")
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

@@ -12,6 +12,8 @@ using RestaurantReservation.Db.DomainModels;
 using RestaurantReservation.Db.DomainModels.Customers;
 using RestaurantReservation.Db.DomainModels.Reservations;
 using System.Security.Cryptography;
+using RestaurantReservation.Db.DomainModels.Employees;
+using RestaurantReservation.Db.DomainModels.Orders;
 
 namespace RestaurantReservation
 {
@@ -20,8 +22,15 @@ namespace RestaurantReservation
         static void Main(string[] args)
         {
 
+            var repo = new EmployeeRepository();
+            var service = new EmployeeService(repo);
 
+            var manager = service.AverageOrderAmountById(3);
+            
 
+            
+
+            
 
 
         }

@@ -18,12 +18,22 @@ namespace RestaurantReservation.Db.DomainModels.Customers
             _customerRepository = customerRepository;
         }
 
-        //public List<Reservation> GetReservations(int id)
-        //{
-        //    return _customerRepository.GetCustomer(id).Reservations;
-        //}
+        public IEnumerable<Reservation> GetReservationsById(int id)
+        {
+            var customer = _customerRepository.GetByIdWithReservations(id);
 
+            if (customer == null)
+            {
+                return Enumerable.Empty<Reservation>();
+            }
 
+            return customer.Reservations;
+        }
+
+        public IEnumerable<Customer> GetCustomersWithPartySizeGreaterThan(PartySize partySize)
+        {
+            return _customerRepository.GetCustomersWithPartySizeGreaterThan(partySize);
+        }
 
     }
 }

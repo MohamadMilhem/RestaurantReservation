@@ -40,21 +40,15 @@ namespace RestaurantReservation.Db.DomainModels.Customers
             return _dbContext.SaveChanges();
         }
 
-
-        public void GetCustomer(int id)
+        public Customer GetByIdWithReservations(int id)
         {
-            var result = _dbContext.Customers.ToList();
-
-            foreach(var item in result) {
-                Console.WriteLine(item.FirstName + " " + item.LastName + " " + item.CustomerId + " " + item.Reservations.Count);
-            }
-
-            
+            return _dbContext.Customers.Include(customer => customer.Reservations).SingleOrDefault(customer => customer.CustomerId == id);
         }
 
-        public IQueryable<Customer> Query()
+        public IEnumerable<Customer> GetCustomersWithPartySizeGreaterThan(PartySize partySize)
         {
-            return _dbContext.Set<Customer>().AsQueryable();
+            return _dbContext.Customers.Include(customer => customer.Reservations)
+                    .Where(customer => customer.Reservations.Any(res => res.PartySize > partySize));
         }
 
     }
