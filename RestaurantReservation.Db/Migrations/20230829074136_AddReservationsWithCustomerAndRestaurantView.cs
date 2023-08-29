@@ -10,7 +10,7 @@ namespace RestaurantReservation.Db.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@" CREATE VIEW dbo.ReservationDetails
+            migrationBuilder.Sql(@" CREATE VIEW dbo.DetailedReservations
                                     AS
                                     SELECT Res.ReservationId, Res.TableId, Res.ReservationDate, Res.PartySize,
                                     C.CustomerId, C.FirstName, C.LastName, C.Email As 'CustomerEmail', C.PhoneNumber As 'CustomerPhoneNumber',
@@ -24,7 +24,7 @@ namespace RestaurantReservation.Db.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"DROP VIEW IF EXISTS dbo.ReservationDetails;");
+            migrationBuilder.Sql(@"DROP VIEW IF EXISTS dbo.DetailedReservations;");
         }
     }
 }

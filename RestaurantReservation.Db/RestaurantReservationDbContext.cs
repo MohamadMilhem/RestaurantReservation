@@ -55,6 +55,9 @@ namespace RestaurantReservation.Db
             TimeMapper<Restaurant>(modelBuilder, timeOnlyConverter, r => r.OpenHour);
             TimeMapper<Restaurant>(modelBuilder, timeOnlyConverter, r => r.CloseHour);
 
+            TimeMapper<DetailedReservation>(modelBuilder, timeOnlyConverter, dr => dr.OpenHour);
+            TimeMapper<DetailedReservation>(modelBuilder, timeOnlyConverter, dr => dr.OpenHour);
+
             Customer.ConfigureEntity(modelBuilder);
             Restaurant.ConfigureEntity(modelBuilder);
             Employee.ConfigureEntity(modelBuilder);
@@ -137,7 +140,7 @@ namespace RestaurantReservation.Db
 
         }
 
-        private static void TimeMapper<T>(ModelBuilder modelBuilder, ValueConverter<TimeOnly, TimeSpan> timeOnlyConverter, Expression<Func<T, TimeOnly>> propertyExpression) where T : class
+        public static void TimeMapper<T>(ModelBuilder modelBuilder, ValueConverter<TimeOnly, TimeSpan> timeOnlyConverter, Expression<Func<T, TimeOnly>> propertyExpression) where T : class
         {
             modelBuilder
                 .Entity<T>()
@@ -145,7 +148,7 @@ namespace RestaurantReservation.Db
                   .HasConversion(timeOnlyConverter);
         }
 
-        private static ValueConverter<TimeOnly, TimeSpan> TimeOnlyConverter()
+        public static ValueConverter<TimeOnly, TimeSpan> TimeOnlyConverter()
         {
             return new ValueConverter<TimeOnly, TimeSpan>(
                     timeOnly => timeOnly.ToTimeSpan(),
