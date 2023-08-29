@@ -1,4 +1,5 @@
-﻿using RestaurantReservation.Db.DomainModels.Orders;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Db.DomainModels.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,5 +38,12 @@ namespace RestaurantReservation.Db.DomainModels.Reservations
             }
             return _dbContext.SaveChanges();
         }
+
+        public Reservation GetOrdersWithItemsById(int id)
+        {
+            return _dbContext.Reservations.Include(reservation => reservation.Orders)
+                    .ThenInclude(order => order.Items).ThenInclude(oi => oi.MenuItem).SingleOrDefault(res => res.ReservationId == id);
+        }
+
     }
 }

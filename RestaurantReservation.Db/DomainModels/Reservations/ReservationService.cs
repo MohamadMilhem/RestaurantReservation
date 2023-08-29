@@ -1,4 +1,6 @@
-﻿using RestaurantReservation.Db.DomainModels.Orders;
+﻿using RestaurantReservation.Db.DomainModels.MenuItems;
+using RestaurantReservation.Db.DomainModels.OrderItems;
+using RestaurantReservation.Db.DomainModels.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +13,30 @@ namespace RestaurantReservation.Db.DomainModels.Reservations
     {
 
         private readonly ReservationRepository _reservationRepository;
-        private readonly OrderRepository _orderRepository;
         
-        public ReservationService(ReservationRepository reservationRepository, OrderRepository orderRepository)
+        public ReservationService(ReservationRepository reservationRepository)
         {
             _reservationRepository = reservationRepository;
-            _orderRepository = orderRepository;
         }
 
+        public IEnumerable<Order> GetDetailedOrders(int id)
+        {
+            var reservation = _reservationRepository.GetOrdersWithItemsById(id);
+            if (reservation == null)
+                return Enumerable.Empty<Order>();
+
+            return reservation.Orders;
+        }
+
+        public IEnumerable<MenuItem> GetMenuItems(int id)
+        {
+            var reservation = _reservationRepository.GetOrdersWithItemsById(id);
+
+            if (reservation == null)
+                return Enumerable.Empty<MenuItem>();
+
+            return reservation.Orders.SelectMany(order => order.Items).Select(oi => oi.MenuItem).ToList();
+        }
     
 
     }
