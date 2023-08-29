@@ -22,6 +22,7 @@ using RestaurantReservation.Db.DomainModels.OrderItems;
 using RestaurantReservation.Db.DomainModels.Reservations;
 using RestaurantReservation.Db.DomainModels.Restaurants;
 using RestaurantReservation.Db.DomainModels.Tables;
+using RestaurantReservation.Db.ViewsModels;
 
 namespace RestaurantReservation.Db
 {
@@ -35,6 +36,7 @@ namespace RestaurantReservation.Db
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Table> Tables { get; set; }
+        public DbSet<DetailedReservation> DetailedReservations { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -61,6 +63,7 @@ namespace RestaurantReservation.Db
             Order.ConfigureEntity(modelBuilder);
             OrderItem.ConfigureEntity(modelBuilder);
             Reservation.ConfigureEntity(modelBuilder);
+            DetailedReservation.ConfigureEntity(modelBuilder);
 
             SeedData(modelBuilder);
         }
