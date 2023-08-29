@@ -14,40 +14,26 @@ namespace RestaurantReservation.Db.ViewsModels
 {
     public class DetailedReservation
     {
-        public int ReservationId;
-        public int TableId;
-        public DateTime ReservationDate;
-        public PartySize PartySize;
-        public int CustomerId;
-        public string FirstName;
-        public string LastName;
-        public string? CustomerEmail;
-        public string? CustomerPhoneNumber;
-        public int RestaurantId;
-        public string? RestaurantName;
-        public string? Address;
-        public string? RestaurantPhoneNumber;
-        public TimeOnly OpenHour;
-        public TimeOnly CloseHour;
+        public int ReservationId { get; set; }
+        public int TableId { get; set; }
+        public DateTime ReservationDate { get; set; }
+        public PartySize PartySize { get; set; }
+        public int CustomerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; } 
+        public string? CustomerEmail { get; set; }
+        public string? CustomerPhoneNumber { get; set; }
+        public int RestaurantId { get; set; }
+        public string? RestaurantName { get; set; }
+        public string? Address { get; set; }
+        public string? RestaurantPhoneNumber { get; set; }
+        public TimeOnly OpenHour { get; set; }
+        public TimeOnly CloseHour { get; set; }
 
         public static void ConfigureEntity(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DetailedReservation>(entity =>
             {
-
-                entity.Property(c => c.ReservationId).HasColumnName("ReservationId");
-                entity.Property(c => c.TableId).HasColumnName("TableId");
-                entity.Property(c => c.ReservationDate).HasColumnName("ReservationDate");
-                entity.Property(c => c.PartySize).HasColumnName("PartySize");
-                entity.Property(c => c.CustomerId).HasColumnName("CustomerId");
-                entity.Property(c => c.FirstName).HasColumnName("FirstName");
-                entity.Property(c => c.LastName).HasColumnName("LastName");
-                entity.Property(c => c.CustomerEmail).HasColumnName("CustomerEmail");
-                entity.Property(c => c.CustomerPhoneNumber).HasColumnName("CustomerPhoneNumber");
-                entity.Property(c => c.RestaurantId).HasColumnName("RestaurantId");
-                entity.Property(c => c.RestaurantName).HasColumnName("RestaurantName");
-                entity.Property(c => c.Address).HasColumnName("Address");
-                entity.Property(c => c.RestaurantPhoneNumber).HasColumnName("RestaurantPhoneNumber");
                 entity.HasNoKey();
                 entity.ToView("DetailedReservations");
             });
