@@ -62,6 +62,7 @@ namespace RestaurantReservation.Db
             OrderItem.ConfigureEntity(modelBuilder);
             Reservation.ConfigureEntity(modelBuilder);
 
+            SeedData(modelBuilder);
         }
 
         private static void SeedData(ModelBuilder modelBuilder)
@@ -108,11 +109,11 @@ namespace RestaurantReservation.Db
                 );
 
             modelBuilder.Entity<Order>().HasData(
-                new  { OrderId = 1, OrderDate = DateTime.Now, TotalAmount = 23.98m, ReservationId = 1, EmployeeId = 4 },
-                new  { OrderId = 2, OrderDate = DateTime.Now.AddDays(-1), TotalAmount = 45.75m, ReservationId = 2, EmployeeId = 3 },
-                new  { OrderId = 3, OrderDate = DateTime.Now.AddDays(-2), TotalAmount = 32.50m, ReservationId = 3, EmployeeId = 3 },
-                new  { OrderId = 4, OrderDate = DateTime.Now.AddDays(-3), TotalAmount = 15.25m, ReservationId = 4, EmployeeId = 2 },
-                new  { OrderId = 5, OrderDate = DateTime.Now.AddDays(-4), TotalAmount = 28.90m, ReservationId = 5, EmployeeId = 2 }
+                new  { OrderId = 1, OrderDate = new DateTime(2023, 8, 29), TotalAmount = 23.98m, ReservationId = 1, EmployeeId = 4 },
+                new  { OrderId = 2, OrderDate = new DateTime(2023, 8, 28), TotalAmount = 45.75m, ReservationId = 2, EmployeeId = 3 },
+                new  { OrderId = 3, OrderDate = new DateTime(2023, 8, 27), TotalAmount = 32.50m, ReservationId = 3, EmployeeId = 3 },
+                new  { OrderId = 4, OrderDate = new DateTime(2023, 8, 25), TotalAmount = 15.25m, ReservationId = 4, EmployeeId = 2 },
+                new  { OrderId = 5, OrderDate = new DateTime(2023, 8, 26), TotalAmount = 28.90m, ReservationId = 5, EmployeeId = 2 }
                 );
 
             modelBuilder.Entity<OrderItem>().HasData(
@@ -124,11 +125,11 @@ namespace RestaurantReservation.Db
                 );
 
             modelBuilder.Entity<Reservation>().HasData(
-                new  { ReservationId = 1, ReservationDate = DateTime.Now.AddDays(1), PartySize = PartySize.Small, CustomerId = 3, TableId = 1, RestaurantId = 1 },
-                new  { ReservationId = 2, ReservationDate = DateTime.Now.AddDays(2), PartySize = PartySize.Large, CustomerId = 3, TableId = 2, RestaurantId = 2 },
-                new  { ReservationId = 3, ReservationDate = DateTime.Now.AddDays(3), PartySize = PartySize.Medium, CustomerId = 4, TableId = 3, RestaurantId = 3},
-                new  { ReservationId = 4, ReservationDate = DateTime.Now.AddDays(4), PartySize = PartySize.Medium, CustomerId = 5, TableId = 4, RestaurantId = 4 },
-                new  { ReservationId = 5, ReservationDate = DateTime.Now.AddDays(5), PartySize = PartySize.Small, CustomerId = 1, TableId = 5, RestaurantId = 4 }
+                new  { ReservationId = 1, ReservationDate = new DateTime(2023, 8, 29), PartySize = PartySize.Small, CustomerId = 3, TableId = 1, RestaurantId = 1 },
+                new  { ReservationId = 2, ReservationDate = new DateTime(2023, 8, 28), PartySize = PartySize.Large, CustomerId = 3, TableId = 2, RestaurantId = 2 },
+                new  { ReservationId = 3, ReservationDate = new DateTime(2023, 8, 27), PartySize = PartySize.Medium, CustomerId = 4, TableId = 3, RestaurantId = 3},
+                new  { ReservationId = 4, ReservationDate = new DateTime(2023, 8, 26), PartySize = PartySize.Medium, CustomerId = 5, TableId = 4, RestaurantId = 4 },
+                new  { ReservationId = 5, ReservationDate = new DateTime(2023, 8, 25), PartySize = PartySize.Small, CustomerId = 1, TableId = 5, RestaurantId = 4 }
                 );
 
         }
