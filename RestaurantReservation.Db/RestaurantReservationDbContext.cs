@@ -37,6 +37,7 @@ namespace RestaurantReservation.Db
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<DetailedReservation> DetailedReservations { get; set; }
+        public DbSet<DetailedEmployee> DetailedEmployees { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -56,7 +57,10 @@ namespace RestaurantReservation.Db
             TimeMapper<Restaurant>(modelBuilder, timeOnlyConverter, r => r.CloseHour);
 
             TimeMapper<DetailedReservation>(modelBuilder, timeOnlyConverter, dr => dr.OpenHour);
-            TimeMapper<DetailedReservation>(modelBuilder, timeOnlyConverter, dr => dr.OpenHour);
+            TimeMapper<DetailedReservation>(modelBuilder, timeOnlyConverter, dr => dr.CloseHour);
+
+            TimeMapper<DetailedEmployee>(modelBuilder, timeOnlyConverter, de => de.OpenHour);
+            TimeMapper<DetailedEmployee>(modelBuilder, timeOnlyConverter, de => de.CloseHour);
 
             Customer.ConfigureEntity(modelBuilder);
             Restaurant.ConfigureEntity(modelBuilder);
@@ -67,6 +71,7 @@ namespace RestaurantReservation.Db
             OrderItem.ConfigureEntity(modelBuilder);
             Reservation.ConfigureEntity(modelBuilder);
             DetailedReservation.ConfigureEntity(modelBuilder);
+            DetailedEmployee.ConfigureEntity(modelBuilder);
 
             SeedData(modelBuilder);
         }
