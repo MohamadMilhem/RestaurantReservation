@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using RestaurantReservation.Db.DomainModels.Restaurants;
 using RestaurantReservation.Db.DomainModels.Customers;
 using RestaurantReservation.Db.DomainModels.Tables;
-
+using RestaurantReservation.Db.DomainModels.Orders;
 
 namespace RestaurantReservation.Db.DomainModels.Reservations
 {
@@ -17,6 +17,7 @@ namespace RestaurantReservation.Db.DomainModels.Reservations
         public Customer Customer { get; set; }
         public Restaurant Restaurant { get; set; }
         public Table Table { get; set; }
+        public List<Order> Orders { get; set; } = new List<Order>();
         public DateTime ReservationDate { get; set; }
         public PartySize PartySize { get; set; }
 
@@ -38,6 +39,12 @@ namespace RestaurantReservation.Db.DomainModels.Reservations
                 .HasOne(r => r.Table)
                 .WithMany(t => t.Reservations)
                 .HasForeignKey("TableId")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Reservation>()
+                .HasMany(r => r.Orders)
+                .WithOne(o => o.Reservation)
+                .HasForeignKey("ReservationId")
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

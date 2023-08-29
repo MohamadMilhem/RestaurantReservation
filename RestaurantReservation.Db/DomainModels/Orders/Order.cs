@@ -24,7 +24,7 @@ namespace RestaurantReservation.Db.DomainModels.Orders
         {
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.Reservation)
-                .WithMany()
+                .WithMany(r => r.Orders)
                 .HasForeignKey("ReservationId")
                 .OnDelete(DeleteBehavior.Cascade);
 
