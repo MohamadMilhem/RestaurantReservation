@@ -62,8 +62,6 @@ namespace RestaurantReservation.Db
             OrderItem.ConfigureEntity(modelBuilder);
             Reservation.ConfigureEntity(modelBuilder);
 
-            SeedData(modelBuilder);
-
         }
 
         private static void SeedData(ModelBuilder modelBuilder)
