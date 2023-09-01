@@ -22,7 +22,8 @@ using RestaurantReservation.Db.DomainModels.OrderItems;
 using RestaurantReservation.Db.DomainModels.Reservations;
 using RestaurantReservation.Db.DomainModels.Restaurants;
 using RestaurantReservation.Db.DomainModels.Tables;
-using RestaurantReservation.Db.ViewsModels;
+using RestaurantReservation.Db.ViewsModels.DetailedEmpolyees;
+using RestaurantReservation.Db.ViewsModels.DetailedReservations;
 
 namespace RestaurantReservation.Db
 {
