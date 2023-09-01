@@ -25,7 +25,7 @@ namespace RestaurantReservation.Db.DomainModels.Employees
         public decimal AverageOrderAmountById(int id)
         {
             var employee = _employeeRepository.GetWithOrders(id);
-            if (employee == null)
+            if (employee == null || !employee.Orders.Any())
             {
                 return 0;
             }
