@@ -14,6 +14,7 @@ namespace RestaurantReservation.Db.ViewsModels.DetailedReservations
 {
     public class DetailedReservation
     {
+
         public int ReservationId { get; set; }
         public int TableId { get; set; }
         public DateTime ReservationDate { get; set; }

@@ -2,6 +2,7 @@
 {
     public static class Converter
     {
+
         public static MenuChoice FromNumericStringToMenuChoice(string choice)
         {
             int value = int.Parse(choice);

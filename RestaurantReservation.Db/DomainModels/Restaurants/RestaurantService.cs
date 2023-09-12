@@ -20,6 +20,5 @@
             var TotalRevenue = restaurant.Reservations.Sum(res => res.Orders.Sum(o => o.TotalAmount));
             return TotalRevenue;
         }
-
     }
 }

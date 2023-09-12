@@ -11,6 +11,7 @@ using RestaurantReservation.Db.ViewsModels.DetailedReservations;
 
 namespace RestaurantReservation.Db
 {
+
     public static class Factory
     {
 

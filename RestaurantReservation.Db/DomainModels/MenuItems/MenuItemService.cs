@@ -4,11 +4,10 @@
     {
 
         private readonly MenuItemRepository _menuItemRepository;
+
         public MenuItemService(MenuItemRepository menuRepository)
         {
             _menuItemRepository = menuRepository;
         }
-
-        
     }
 }

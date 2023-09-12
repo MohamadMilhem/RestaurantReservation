@@ -8,6 +8,7 @@ namespace RestaurantReservation.Db.ViewsModels.DetailedEmpolyees
 {
     public class DetailedEmployeeService
     {
+
         private readonly DetailedEmployeeRepository _detailedEmployeeRepository;
 
         public DetailedEmployeeService(DetailedEmployeeRepository detailedEmployeeRepository)

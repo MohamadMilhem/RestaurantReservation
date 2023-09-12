@@ -6,6 +6,7 @@ namespace RestaurantReservation.Db.Operations
     {
 
         private readonly CustomerService _customerService;
+
         public GetAllCustomersWithPartySizeGreaterOperation()
         {
             _customerService = Factory.CreateCustomerService();

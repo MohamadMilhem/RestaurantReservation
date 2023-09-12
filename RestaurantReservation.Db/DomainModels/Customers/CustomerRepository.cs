@@ -4,6 +4,7 @@ namespace RestaurantReservation.Db.DomainModels.Customers
 {
     public class CustomerRepository
     {
+
         private RestaurantReservationDbContext _dbContext;
 
         public CustomerRepository()
@@ -44,6 +45,5 @@ namespace RestaurantReservation.Db.DomainModels.Customers
             return _dbContext.Customers.Include(customer => customer.Reservations)
                     .Where(customer => customer.Reservations.Any(res => res.PartySize > partySize));
         }
-
     }
 }

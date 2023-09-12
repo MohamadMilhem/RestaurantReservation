@@ -6,6 +6,7 @@ namespace RestaurantReservation.Db.DomainModels.OrderItems
 {
     public class OrderItem : IOrderItem
     {
+
         public int OrderItemId { get; set; }
         public Order Order { get; set; }
         public MenuItem MenuItem { get; set; }

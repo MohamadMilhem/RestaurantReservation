@@ -9,6 +9,7 @@ namespace RestaurantReservation.Db.ViewsModels.DetailedReservations
 {
     public class DetailedReservationRepository
     {
+
         private readonly RestaurantReservationDbContext _dbContext;
 
         public DetailedReservationRepository()

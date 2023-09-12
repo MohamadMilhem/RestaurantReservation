@@ -31,7 +31,5 @@ namespace RestaurantReservation.Db.DomainModels.Reservations
 
             return reservation.Orders.SelectMany(order => order.Items).Select(oi => oi.MenuItem).ToList();
         }
-    
-
     }
 }

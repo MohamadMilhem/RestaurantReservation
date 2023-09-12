@@ -9,6 +9,7 @@ namespace RestaurantReservation.Db.ViewsModels.DetailedEmpolyees
 {
     public class DetailedEmployeeRepository
     {
+
         private readonly RestaurantReservationDbContext _dbContext;
 
         public DetailedEmployeeRepository()
@@ -20,7 +21,5 @@ namespace RestaurantReservation.Db.ViewsModels.DetailedEmpolyees
         {
             return _dbContext.DetailedEmployees.SingleOrDefault(emp => emp.EmployeeId == Id);
         }
-
-
     }
 }

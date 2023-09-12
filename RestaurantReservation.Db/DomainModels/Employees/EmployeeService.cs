@@ -23,6 +23,5 @@
             }
             return employee.Orders.Average(order => order.TotalAmount);
         }
-
     }
 }

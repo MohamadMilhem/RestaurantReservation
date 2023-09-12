@@ -17,6 +17,7 @@ namespace RestaurantReservation.Db
 {
     public class RestaurantReservationDbContext : DbContext
     {
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
@@ -27,7 +28,6 @@ namespace RestaurantReservation.Db
         public DbSet<Table> Tables { get; set; }
         public DbSet<DetailedReservation> DetailedReservations { get; set; }
         public DbSet<DetailedEmployee> DetailedEmployees { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -131,7 +131,6 @@ namespace RestaurantReservation.Db
                 new  { ReservationId = 4, ReservationDate = new DateTime(2023, 8, 26), PartySize = PartySize.Medium, CustomerId = 5, TableId = 4, RestaurantId = 4 },
                 new  { ReservationId = 5, ReservationDate = new DateTime(2023, 8, 25), PartySize = PartySize.Small, CustomerId = 1, TableId = 5, RestaurantId = 4 }
                 );
-
         }
 
         public static void TimeMapper<T>(ModelBuilder modelBuilder, ValueConverter<TimeOnly, TimeSpan> timeOnlyConverter, Expression<Func<T, TimeOnly>> propertyExpression) where T : class
@@ -148,9 +147,6 @@ namespace RestaurantReservation.Db
                     timeOnly => timeOnly.ToTimeSpan(),
                     timeSpan => TimeOnly.FromTimeSpan(timeSpan));
         }
-
-
-        
     }
 }
 

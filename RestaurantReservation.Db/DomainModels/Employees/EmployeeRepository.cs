@@ -4,6 +4,7 @@ namespace RestaurantReservation.Db.DomainModels.Employees
 {
     public class EmployeeRepository
     {
+
         private RestaurantReservationDbContext _dbContext;
 
         public EmployeeRepository()
@@ -39,13 +40,9 @@ namespace RestaurantReservation.Db.DomainModels.Employees
                     .SingleOrDefault(emp => emp.EmployeeId == id);
         }
 
-
         public IEnumerable<Employee> GetAllEmployeesWithTitle(string title)
         {
             return _dbContext.Employees.Where(employee => employee.Position.Equals(title));
         }
-
-      
-
     }
 }

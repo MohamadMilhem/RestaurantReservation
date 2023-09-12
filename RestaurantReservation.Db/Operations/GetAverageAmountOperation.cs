@@ -4,6 +4,7 @@ namespace RestaurantReservation.Db.Operations
 {
     public class GetAverageAmountOperation : IOperation
     {
+
         private readonly EmployeeService _employeeService;
 
         public GetAverageAmountOperation()

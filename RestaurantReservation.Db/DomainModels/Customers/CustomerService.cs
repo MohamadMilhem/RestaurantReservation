@@ -28,6 +28,5 @@ namespace RestaurantReservation.Db.DomainModels.Customers
         {
             return _customerRepository.GetCustomersWithPartySizeGreaterThan(partySize);
         }
-
     }
 }

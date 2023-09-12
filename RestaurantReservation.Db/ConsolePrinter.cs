@@ -10,6 +10,7 @@ namespace RestaurantReservation.Db
 {
     public class ConsolePrinter
     {
+
         public static void DisplayMenu()
         {
             Console.WriteLine("Please choose one of the following options:");

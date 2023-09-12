@@ -1,5 +1,6 @@
 ﻿namespace RestaurantReservation.Db
 {
+
     public enum PartySize
     {
         Small = 0,

@@ -4,6 +4,7 @@ namespace RestaurantReservation.Db.DomainModels.Restaurants
 {
     public class RestaurantRepository
     {
+
         private RestaurantReservationDbContext _dbContext;
 
         public RestaurantRepository()
@@ -39,6 +40,5 @@ namespace RestaurantReservation.Db.DomainModels.Restaurants
                         .ThenInclude(reservation => reservation.Orders)
                             .SingleOrDefault(restaurant => restaurant.RestaurantId == id);
         }
-
     }
 }

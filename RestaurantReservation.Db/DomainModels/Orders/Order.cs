@@ -8,6 +8,7 @@ namespace RestaurantReservation.Db.DomainModels.Orders
 {
     public class Order : IOrder
     {
+
         public int OrderId { get; set; }
         public Reservation Reservation { get; set; }
         public Employee Employee { get; set; }

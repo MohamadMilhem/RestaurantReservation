@@ -6,6 +6,7 @@ namespace RestaurantReservation.Db.Operations
     {
 
         private readonly DetailedEmployeeService _detailedEmployeeService;
+
         public GetDetailedEmployeeInfoOperation()
         {
             _detailedEmployeeService = Factory.CreateDetailedEmployeeService();

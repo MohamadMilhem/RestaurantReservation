@@ -4,7 +4,9 @@ namespace RestaurantReservation.Db.Operations
 {
     public class GetDetailedReservationOperation : IOperation
     {
+
         private readonly DetailedReservationService _detailedReservationService;
+
         public GetDetailedReservationOperation()
         {
             _detailedReservationService = Factory.CreateDetailedReservationService();
