@@ -1,0 +1,35 @@
+﻿using RestaurantReservation.Db.Operations;
+
+namespace RestaurantReservation
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            var operations = AddOperations();
+            var program = new Driver(operations);
+
+            while (program.ProcessOption()) ;
+            
+        }
+
+        static List<IOperation> AddOperations()
+        {
+            var operations = new List<IOperation>();
+
+            operations.Add(new ListManagersOperation());
+            operations.Add(new GetReservationsOperation());
+            operations.Add(new GetOrdersWithMenuItemsOperation());
+            operations.Add(new CalculateTotalRevenueOperation());
+            operations.Add(new GetOrderItemsOperation());
+            operations.Add(new GetAverageAmountOperation());
+            operations.Add(new GetAllCustomersWithPartySizeGreaterOperation());
+            operations.Add(new GetDetailedReservationOperation());
+            operations.Add(new GetDetailedEmployeeInfoOperation());
+
+            return operations;
+        }
+    }
+   
+    
+}

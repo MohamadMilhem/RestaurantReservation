@@ -1,0 +1,40 @@
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Db.DomainModels.Reservations;
+using RestaurantReservation.Db.DomainModels.Employees;
+using RestaurantReservation.Db.DomainModels.OrderItems;
+
+
+namespace RestaurantReservation.Db.DomainModels.Orders
+{
+    public class Order : IOrder
+    {
+
+        public int OrderId { get; set; }
+        public Reservation Reservation { get; set; }
+        public Employee Employee { get; set; }
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public DateTime OrderDate { get; set; }
+        public decimal TotalAmount { get; set; }
+
+        public static void ConfigureEntity(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Reservation)
+                .WithMany(r => r.Orders)
+                .HasForeignKey("ReservationId")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Employee)
+                .WithMany(e => e.Orders)
+                .HasForeignKey("EmployeeId")
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.Items)
+                .WithOne(oi => oi.Order)
+                .HasForeignKey("OrderId")
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+    }
+}
