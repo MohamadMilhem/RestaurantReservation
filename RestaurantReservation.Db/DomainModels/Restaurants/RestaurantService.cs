@@ -1,11 +1,11 @@
 ﻿namespace RestaurantReservation.Db.DomainModels.Restaurants
 {
-    public class RestaurantService
+    public class RestaurantService : IRestaurantService
     {
 
-        private readonly RestaurantRepository _restaurantRepository;
+        private readonly IRestaurantRepository _restaurantRepository;
 
-        public RestaurantService(RestaurantRepository restaurantRepository)
+        public RestaurantService(IRestaurantRepository restaurantRepository)
         {
             _restaurantRepository = restaurantRepository;
         }

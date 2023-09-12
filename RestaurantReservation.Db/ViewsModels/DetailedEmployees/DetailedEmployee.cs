@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantReservation.Db.ViewsModels.DetailedEmpolyees
 {
-    public class DetailedEmployee
+    public class DetailedEmployee : IDetailedEmployee
     {
 
         public int EmployeeId { get; set; }

@@ -2,7 +2,7 @@
 
 namespace RestaurantReservation.Db.DomainModels.Customers
 {
-    public class CustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
 
         private RestaurantReservationDbContext _dbContext;
@@ -27,7 +27,7 @@ namespace RestaurantReservation.Db.DomainModels.Customers
         public int Delete(Customer customer)
         {
             var result = _dbContext.Customers.Find(customer);
-            
+
             if (result != null)
             {
                 _dbContext.Customers.Remove(result);

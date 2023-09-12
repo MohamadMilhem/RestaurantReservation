@@ -3,9 +3,9 @@
     public class OrderService
     {
 
-        private readonly OrderRepository _orderRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public OrderService(OrderRepository orderRepository)
+        public OrderService(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
         }

@@ -9,7 +9,7 @@ namespace RestaurantReservation.Db.Operations
 
         public CalculateTotalRevenueOperation()
         {
-            _restaurantService = Factory.CreateRestaurantService();
+            _restaurantService = Factory.CreateRestaurantService(Factory.CreateRestaurantRepository());
         }
 
         public void Execute()

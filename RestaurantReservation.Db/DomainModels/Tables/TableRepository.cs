@@ -1,6 +1,6 @@
 ﻿namespace RestaurantReservation.Db.DomainModels.Tables
 {
-    public class TableRepository
+    public class TableRepository : ITableRepository
     {
 
         private RestaurantReservationDbContext _dbContext;

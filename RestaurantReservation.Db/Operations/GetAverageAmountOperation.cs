@@ -9,7 +9,7 @@ namespace RestaurantReservation.Db.Operations
 
         public GetAverageAmountOperation()
         {
-            _employeeService = Factory.CreateEmployeeService();
+            _employeeService = Factory.CreateEmployeeService(Factory.CreateEmployeeRepository());
         }
 
         public void Execute()

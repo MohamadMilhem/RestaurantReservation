@@ -9,7 +9,7 @@ namespace RestaurantReservation.Db.Operations
 
         public ListManagersOperation()
         {
-            _employeeService = Factory.CreateEmployeeService();
+            _employeeService = Factory.CreateEmployeeService(Factory.CreateEmployeeRepository());
         }
 
         public void Execute() 

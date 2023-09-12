@@ -15,64 +15,103 @@ namespace RestaurantReservation.Db
     public static class Factory
     {
 
-        public static CustomerService CreateCustomerService()
+        public static CustomerService CreateCustomerService(ICustomerRepository customerRepository)
         {
-            var customerRepository = new CustomerRepository();
             return new CustomerService(customerRepository);
         }
 
-        public static EmployeeService CreateEmployeeService()
+        public static ICustomerRepository CreateCustomerRepository()
         {
-            var employeeRepository = new EmployeeRepository();
+            return new CustomerRepository();
+        }
+
+        public static EmployeeService CreateEmployeeService(IEmployeeRepository employeeRepository)
+        {
             return new EmployeeService(employeeRepository);
         }
 
-        public static MenuItemService CreateMenuItemService() 
+        public static IEmployeeRepository CreateEmployeeRepository()
         {
-            var menuItemRepository = new MenuItemRepository();  
+            return new EmployeeRepository();
+        }
+
+        public static MenuItemService CreateMenuItemService(IMenuItemRepository menuItemRepository) 
+        {
             return new MenuItemService(menuItemRepository);
         }
 
-        public static OrderItemService CreateOrderItemService()
+        public static IMenuItemRepository CreateMenuItemRepository()
         {
-            var orderItemRepository = new OrderItemRepository();
+            return new MenuItemRepository();
+        }
+
+        public static OrderItemService CreateOrderItemService(IOrderItemRepository orderItemRepository)
+        {
             return new OrderItemService(orderItemRepository);
         }
 
-        public static OrderService CreateOrderService()
+        public static IOrderItemRepository CreateOrderItemRepository()
         {
-            var ordersRepository = new OrderRepository();
-            return new OrderService(ordersRepository);
+            return new OrderItemRepository();
+        }
+        public static OrderService CreateOrderService(IOrderRepository orderRepository)
+        {
+            return new OrderService(orderRepository);
         }
 
-        public static ReservationService CreateReservationService()
+        public static IOrderRepository CreateOrderRepository()
         {
-            var reservationRepository = new ReservationRepository();
+            return new OrderRepository();
+        }
+
+        public static ReservationService CreateReservationService(IReservationRepository reservationRepository)
+        {
             return new ReservationService(reservationRepository);
         }
 
-        public static RestaurantService CreateRestaurantService()
+        public static IReservationRepository CreateReservationRepository()
         {
-            var restaurantRepository = new RestaurantRepository();
+            return new ReservationRepository();
+        }
+
+        public static RestaurantService CreateRestaurantService(IRestaurantRepository restaurantRepository)
+        {
             return new RestaurantService(restaurantRepository);
         }
 
-        public static TableService CreateTableService()
+        public static IRestaurantRepository CreateRestaurantRepository()
         {
-            var tableRepository = new TableRepository();
+            return new RestaurantRepository();
+        }
+
+        public static TableService CreateTableService(ITableRepository tableRepository)
+        {
             return new TableService(tableRepository);
         }
 
-        public static DetailedEmployeeService CreateDetailedEmployeeService()
+        public static ITableRepository CreateTableRepository()
         {
-            var detailedEmployeeRepository = new DetailedEmployeeRepository();
+            return new TableRepository();
+        }
+
+        public static DetailedEmployeeService CreateDetailedEmployeeService(IDetailedEmployeeRepository detailedEmployeeRepository)
+        {
             return new DetailedEmployeeService(detailedEmployeeRepository);
         }
 
-        public static DetailedReservationService CreateDetailedReservationService()
+        public static IDetailedEmployeeRepository CreateDetailedEmployeeRepository()
         {
-            var detailedReservationRepository = new DetailedReservationRepository();
+            return new DetailedEmployeeRepository();
+        }
+
+        public static DetailedReservationService CreateDetailedReservationService(IDetailedReservationRepository detailedReservationRepository)
+        {
             return new DetailedReservationService(detailedReservationRepository);
+        }
+
+        public static IDetailedReservationRepository CreateDetailedReservationRepository()
+        {
+            return new DetailedReservationRepository();
         }
     }
 }

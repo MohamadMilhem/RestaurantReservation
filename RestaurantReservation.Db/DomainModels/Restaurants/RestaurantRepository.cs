@@ -2,7 +2,7 @@
 
 namespace RestaurantReservation.Db.DomainModels.Restaurants
 {
-    public class RestaurantRepository
+    public class RestaurantRepository : IRestaurantRepository
     {
 
         private RestaurantReservationDbContext _dbContext;

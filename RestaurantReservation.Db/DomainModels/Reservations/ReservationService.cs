@@ -3,12 +3,12 @@ using RestaurantReservation.Db.DomainModels.Orders;
 
 namespace RestaurantReservation.Db.DomainModels.Reservations
 {
-    public class ReservationService
+    public class ReservationService : IReservationService
     {
 
-        private readonly ReservationRepository _reservationRepository;
-        
-        public ReservationService(ReservationRepository reservationRepository)
+        private readonly IReservationRepository _reservationRepository;
+
+        public ReservationService(IReservationRepository reservationRepository)
         {
             _reservationRepository = reservationRepository;
         }

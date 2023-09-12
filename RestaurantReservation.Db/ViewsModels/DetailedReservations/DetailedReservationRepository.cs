@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantReservation.Db.ViewsModels.DetailedReservations
 {
-    public class DetailedReservationRepository
+    public class DetailedReservationRepository : IDetailedReservationRepository
     {
 
         private readonly RestaurantReservationDbContext _dbContext;

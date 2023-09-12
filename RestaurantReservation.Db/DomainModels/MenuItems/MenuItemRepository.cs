@@ -1,6 +1,6 @@
 ﻿namespace RestaurantReservation.Db.DomainModels.MenuItems
 {
-    public class MenuItemRepository
+    public class MenuItemRepository : IMenuItemRepository
     {
 
         private RestaurantReservationDbContext _dbContext;

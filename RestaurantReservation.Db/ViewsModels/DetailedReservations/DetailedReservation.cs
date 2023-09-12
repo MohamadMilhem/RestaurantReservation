@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RestaurantReservation.Db.ViewsModels.DetailedReservations
 {
-    public class DetailedReservation
+    public class DetailedReservation : IDetailedReservation
     {
 
         public int ReservationId { get; set; }

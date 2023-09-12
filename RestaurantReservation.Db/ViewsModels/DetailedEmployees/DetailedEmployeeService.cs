@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace RestaurantReservation.Db.ViewsModels.DetailedEmpolyees
 {
-    public class DetailedEmployeeService
+    public class DetailedEmployeeService : IDetailedEmployeeService
     {
 
-        private readonly DetailedEmployeeRepository _detailedEmployeeRepository;
+        private readonly IDetailedEmployeeRepository _detailedEmployeeRepository;
 
-        public DetailedEmployeeService(DetailedEmployeeRepository detailedEmployeeRepository)
+        public DetailedEmployeeService(IDetailedEmployeeRepository detailedEmployeeRepository)
         {
             _detailedEmployeeRepository = detailedEmployeeRepository;
         }

@@ -3,11 +3,11 @@
 
 namespace RestaurantReservation.Db.DomainModels.Customers
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
 
-        private readonly CustomerRepository _customerRepository;
-        public CustomerService(CustomerRepository customerRepository) 
+        private readonly ICustomerRepository _customerRepository;
+        public CustomerService(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
         }

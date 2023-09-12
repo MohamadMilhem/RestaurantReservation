@@ -3,9 +3,9 @@
     public class TableService
     {
 
-        private readonly TableRepository _tableRepository;
+        private readonly ITableRepository _tableRepository;
 
-        public TableService(TableRepository tableRepository)
+        public TableService(ITableRepository tableRepository)
         {
             _tableRepository = tableRepository;
         }

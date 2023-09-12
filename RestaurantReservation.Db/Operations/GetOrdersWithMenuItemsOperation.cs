@@ -9,7 +9,7 @@ namespace RestaurantReservation.Db.Operations
 
         public GetOrdersWithMenuItemsOperation()
         {
-            _reservationService = Factory.CreateReservationService();
+            _reservationService = Factory.CreateReservationService(Factory.CreateReservationRepository());
         }
 
         public void Execute() 

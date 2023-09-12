@@ -1,6 +1,6 @@
 ﻿namespace RestaurantReservation.Db.DomainModels.OrderItems
 {
-    public class OrderItemRepository
+    public class OrderItemRepository : IOrderItemRepository
     {
 
         private RestaurantReservationDbContext _dbContext;

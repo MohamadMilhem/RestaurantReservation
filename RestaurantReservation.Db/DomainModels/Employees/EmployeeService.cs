@@ -1,10 +1,10 @@
 ﻿namespace RestaurantReservation.Db.DomainModels.Employees
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
 
-        private readonly EmployeeRepository _employeeRepository;
-        public EmployeeService(EmployeeRepository employeeRepository)
+        private readonly IEmployeeRepository _employeeRepository;
+        public EmployeeService(IEmployeeRepository employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }

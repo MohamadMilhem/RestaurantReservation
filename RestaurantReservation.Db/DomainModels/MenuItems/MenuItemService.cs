@@ -3,9 +3,9 @@
     public class MenuItemService
     {
 
-        private readonly MenuItemRepository _menuItemRepository;
+        private readonly IMenuItemRepository _menuItemRepository;
 
-        public MenuItemService(MenuItemRepository menuRepository)
+        public MenuItemService(IMenuItemRepository menuRepository)
         {
             _menuItemRepository = menuRepository;
         }
