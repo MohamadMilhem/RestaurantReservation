@@ -1,12 +1,4 @@
-﻿using RestaurantReservation.Db.DomainModels.Customers;
-using RestaurantReservation.Db.DomainModels.Orders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RestaurantReservation.Db.DomainModels.Employees
+﻿namespace RestaurantReservation.Db.DomainModels.Employees
 {
     public class EmployeeService
     {

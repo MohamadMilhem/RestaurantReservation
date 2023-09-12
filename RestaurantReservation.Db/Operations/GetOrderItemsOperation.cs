@@ -1,10 +1,4 @@
-﻿using RestaurantReservation.Db.DomainModels.OrderItems;
-using RestaurantReservation.Db.DomainModels.Reservations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RestaurantReservation.Db.DomainModels.Reservations;
 
 namespace RestaurantReservation.Db.Operations
 {

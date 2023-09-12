@@ -5,11 +5,6 @@ using RestaurantReservation.Db.DomainModels.Orders;
 using RestaurantReservation.Db.DomainModels.Reservations;
 using RestaurantReservation.Db.ViewsModels.DetailedEmpolyees;
 using RestaurantReservation.Db.ViewsModels.DetailedReservations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RestaurantReservation.Db
 {

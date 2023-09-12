@@ -1,11 +1,4 @@
-﻿using RestaurantReservation.Db.DomainModels.Restaurants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RestaurantReservation.Db.DomainModels.Tables
+﻿namespace RestaurantReservation.Db.DomainModels.Tables
 {
     public class TableRepository
     {

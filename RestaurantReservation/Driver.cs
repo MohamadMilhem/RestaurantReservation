@@ -1,18 +1,5 @@
 ﻿using RestaurantReservation.Db;
-using RestaurantReservation.Db.DomainModels.Customers;
-using RestaurantReservation.Db.DomainModels.Employees;
-using RestaurantReservation.Db.DomainModels.MenuItems;
-using RestaurantReservation.Db.DomainModels.OrderItems;
-using RestaurantReservation.Db.DomainModels.Orders;
-using RestaurantReservation.Db.DomainModels.Reservations;
-using RestaurantReservation.Db.DomainModels.Restaurants;
-using RestaurantReservation.Db.DomainModels.Tables;
 using RestaurantReservation.Db.Operations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RestaurantReservation
 {
